@@ -128,3 +128,15 @@
     @apply font-sans;
   }
 }
+
+.input {
+  @apply w-full border p-2 rounded;
+}
+
+.btn {
+  @apply w-full bg-black text-white p-2 rounded;
+}
+
+.btn-outline {
+  @apply w-full border p-2 rounded;
+}
