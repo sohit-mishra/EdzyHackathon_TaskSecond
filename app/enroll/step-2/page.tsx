@@ -21,6 +21,7 @@ export default function Step2() {
   const scholarship = watch("scholarship");
 
   const onSubmit = (data: any) => {
+    console.log("Step 2 Data:", data);
     setStepData("step2", data);
     router.push("/enroll/step-3");
   };
