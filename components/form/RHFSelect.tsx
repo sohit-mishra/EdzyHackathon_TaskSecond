@@ -1,6 +1,18 @@
 "use client";
 
 import ErrorMessage from "../common/ErrorMessage";
+import { cn } from "@/lib/utils";
+
+interface RHFSelectProps {
+  label?: string;
+  register: any;
+  name: string;
+  options: string[];
+  error?: any;
+  required?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+}
 
 export default function RHFSelect({
   label,
@@ -8,20 +20,36 @@ export default function RHFSelect({
   name,
   options,
   error,
-}: any) {
+  required = false,
+  disabled = false,
+  placeholder = "Select an option",
+}: RHFSelectProps) {
   return (
-    <div>
-      <label className="block text-sm mb-1">{label}</label>
+    <div className="w-full">
+      {label && (
+        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-2">
+          {label}
+          {required && <span className="text-red-500 ml-1">*</span>}
+        </label>
+      )}
       <select
+        id={name}
         {...register(name)}
-        className="w-full border p-2 rounded"
+        disabled={disabled}
+        className={cn(
+          "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white",
+          error ? "border-red-500" : "border-gray-300",
+          disabled && "bg-gray-100 cursor-not-allowed opacity-50"
+        )}
       >
-        <option value="">Select</option>
+        <option value="">{placeholder}</option>
         {options.map((opt: string) => (
-          <option key={opt}>{opt}</option>
+          <option key={opt} value={opt}>
+            {opt}
+          </option>
         ))}
       </select>
-      <ErrorMessage message={error?.message} />
+      {error && <ErrorMessage message={error?.message} />}
     </div>
   );
 }
